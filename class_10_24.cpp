@@ -55,6 +55,7 @@ public:
 	{
 		return !(*this == d);
 	}
+public:
 	Date operator+(int n)//日期+n天
 	{
 		int year = m_year;
@@ -91,6 +92,69 @@ public:
 		}
 		m_day += n;
 		return *this;
+	}
+	Date operator-(int n)//日期-n天
+	{
+		int year = m_year;
+		int month = m_month;
+		int day = m_day;
+		int days = GetDaysByYearMonth(year, month);
+		while ( n > days)
+		{
+			month--;
+			if (month == 1)
+			{
+				year--;
+				month = 12;
+			}
+			n -= days;
+			days = GetDaysByYearMonth(year, month);
+		}
+	}
+	int operator-(const Date& dt)
+	{
+		if (*this < dt)
+		{
+			return;
+		}
+		int count = 0;
+		int year = m_year;
+		int month = m_month;
+		int day = m_day;
+		if (day >= dt.m_day)
+		{
+			count = day - m_day;
+		}
+		else
+		{
+			int days = GetDaysByYearMonth(year, month);
+			count = days + day - m_day;
+			if (month == 1)
+			{
+				month = 12;
+				year--;
+			}
+			month--;
+		}
+		if (month >= dt.m_month)
+		{
+			while (month >= dt.m_month)
+			{
+				int days = GetDaysByYearMonth(year, month);
+				count += days;
+				month--;
+			}
+		else
+		{
+			month = 12;
+			year--;
+		}
+		}
+		
+		if (year > dt.m_year)
+		{
+			tmp.m_year = year - dt.m_year;
+		}
 	}
 public:
 	//获取某一年某一月的天数
@@ -138,10 +202,10 @@ void main()
 {
 	Date dt(2021,10,24);
 	cout << "dt = " << dt;
-	Date dt1 = dt;
-	cout << "dt1 = " << dt1 << endl;
-	Date dt2 = dt + 100;
+	//Date dt1 = dt;
+	//cout << "dt1 = " << dt1 << endl;
+	Date dt2 = dt - 100;
 	cout << "dt2 = " << dt2 << endl;
-	dt += 100;
-	cout << "dt = " << dt << endl;
+	//dt1 += 100;
+	//cout << "dt = " << dt << endl;
 }
