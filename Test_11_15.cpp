@@ -97,6 +97,7 @@ void TestString3()
 	s += 'ac';//在s字符串这样追加，最终有效字符只有最后一个字符
 	cout << s << endl;
 	cout << s.c_str() << endl;//以C语言方式打印字符串
+////////////////////////////////////////////////////////////////
 	//获取file的后缀
 	string file1("string.cpp");
 	//返回字符'.'后的第一个字符
@@ -110,10 +111,15 @@ int main()
 	string s1;//构造空的string类对象s1
 	string s2("Hello world");//用C的string来构造对象
 	string s3(s2);//拷贝构造
+	string s4(5, 'a');//s4中存放5个a
+	string s5(s2, 6, 5);//从s2中截取从下标6开始的5个字符
+	string s6("Hello world", 5);//截取字符串中的前5个字符
+	string s7 = "Hello world";
+	cout << s7 << endl;
 	////////////////////////////////////////////////////////////////
 	//TestString1();
 	//TestPushBack();
 	//TestString2();
-	TestString3();
+	//TestString3();
 	return 0;
 }
